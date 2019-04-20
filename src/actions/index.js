@@ -10,7 +10,7 @@ export const DeleteTodo = id => {
   return { type: "DELETE_TODO", id };
 };
 
-export const Actions = {
+export const ActionTypes = {
   ADD_TODO: "ADD_TODO",
   EDIT_TODO: "EDIT_TODO",
   DELETE_TODO: "DELETE_TODO"

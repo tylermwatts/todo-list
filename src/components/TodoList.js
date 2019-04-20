@@ -5,34 +5,35 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Edit from "@material-ui/icons/Edit";
 import React, { Component } from "react";
-import { AddTodo, DeleteTodo, EditTodo } from "../actions/index";
-import * as mockList from "../mockData";
+import { connect } from "react-redux";
+import uuidv1 from "uuid/v1";
+import { AddTodo } from "../actions/index";
 
 class TodoList extends Component {
   state = {
-    todoList: []
+    currentText: ""
   };
 
-  componentDidMount() {
-    this.setState({ todoList: [...mockList.default] });
-  }
-
-  addTodo = todo => {
-    AddTodo(todo);
+  addTodo = e => {
+    e.preventDefault();
+    const todo = {
+      id: uuidv1(),
+      text: this.state.currentText,
+      createDate: new Date()
+    };
+    this.props.dispatch(AddTodo(todo));
+    this.setState({ currentText: "" });
   };
 
-  editTodo = todo => {
-    EditTodo(todo.id);
-  };
+  deleteTodo = todo => {};
 
-  deleteTodo = todo => {
-    DeleteTodo(todo.id);
+  handleChange = e => {
+    this.setState({ currentText: e.target.value });
   };
 
   render() {
-    const { todoList } = this.state;
+    const { todoList } = this.props;
     return (
       <div
         style={{
@@ -41,11 +42,11 @@ class TodoList extends Component {
         }}
       >
         <form onSubmit={this.addTodo}>
-          <TextField />
-          <br />
-          <Button variant="contained" type="submit">
-            Add "To Do"
-          </Button>
+          <TextField
+            onChange={this.handleChange}
+            value={this.state.currentText}
+          />
+          <Button type="submit">Submit</Button>
         </form>
         <List component="nav">
           {todoList.map((t, i) => {
@@ -53,9 +54,6 @@ class TodoList extends Component {
               <ListItem key={`List Item ${i}`} button>
                 <ListItemText primary={t.text} />
                 <ListItemSecondaryAction>
-                  <IconButton onClick={this.editTodo} aria-label="Edit">
-                    <Edit />
-                  </IconButton>
                   <IconButton onClick={this.deleteTodo} aria-label="Delete">
                     <DeleteIcon />
                   </IconButton>
@@ -69,4 +67,9 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+const mapStateToProps = state => {
+  console.log(state);
+  return { todoList: [...state] };
+};
+
+export default connect(mapStateToProps)(TodoList);

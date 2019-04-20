@@ -1,9 +1,15 @@
 import React, { Component } from "react";
+import { Provider } from "react-redux";
 import TodoList from "./components/TodoList";
+import { store } from "./store/index";
 
 class App extends Component {
   render() {
-    return <TodoList />;
+    return (
+      <Provider store={store}>
+        <TodoList />
+      </Provider>
+    );
   }
 }
 

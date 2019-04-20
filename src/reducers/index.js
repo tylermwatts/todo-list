@@ -1,7 +1,12 @@
-const todos = (state = [], action) => {
+import mockData from "../mockData";
+
+const todos = (state = [...mockData], action) => {
   switch (action.type) {
     case "ADD_TODO":
-      return [...state, { id: action.id, text: action.text, completed: false }];
+      return [
+        ...state,
+        { id: action.todo.id, text: action.todo.text, completed: false }
+      ];
     case "DELETE_TODO":
       return state.filter(t => t.id !== action.id);
     default:
