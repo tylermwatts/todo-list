@@ -1,19 +1,19 @@
 export default [
   {
     id: "x01",
-    text: "list item 1",
+    text: "Exercise",
     createDate: Date("2019-04-20"),
     completed: false
   },
   {
     id: "x02",
-    text: "list item 2",
+    text: "Go to grocery store",
     createDate: Date("2019-04-20"),
     completed: false
   },
   {
     id: "x03",
-    text: "list item 3",
+    text: "Put away laundry",
     createDate: Date("2019-04-20"),
     completed: false
   }

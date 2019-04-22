@@ -1,25 +1,20 @@
-export const AddTodo = todo => {
-  return { type: "ADD_TODO", todo };
-};
+import uuidv1 from "uuid/v1";
 
-export const EditTodo = (text, id) => {
-  return { type: "EDIT_TODO", text, id };
-};
+export const addTodo = text => ({
+  type: "ADD_TODO",
+  id: uuidv1(),
+  text
+});
 
-export const DeleteTodo = id => {
-  return { type: "DELETE_TODO", id };
-};
+export const setVisibilityFilter = filter => ({
+  type: "SET_VISIBILITY_FILTER",
+  filter
+});
 
-export const SetVisibilityFilter = filter => {
-  return { type: "SET_VISIBILITY_FILTER", filter };
-};
-
-export const ActionTypes = {
-  ADD_TODO: "ADD_TODO",
-  EDIT_TODO: "EDIT_TODO",
-  DELETE_TODO: "DELETE_TODO",
-  SET_VISIBILITY_FILTER: "SET_VISIBILITY_FILTER"
-};
+export const toggleTodo = id => ({
+  type: "TOGGLE_TODO",
+  id
+});
 
 export const VisibilityFilters = {
   SHOW_ALL: "SHOW_ALL",
